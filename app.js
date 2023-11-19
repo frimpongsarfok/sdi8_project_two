@@ -25,16 +25,24 @@ app.get('/fish', (req, res) => {
 });
 app.get("/image/:imageNum",(req,res)=>{    
     const imageNume=req.params.imageNum;
-    fs.readdir('./fish', (err, files) => {
-    if (err) {
-        console.error('Error reading directory:', err);
-        return;
-    }
-    res.setHeader('Content-Type', 'image/jpeg');
-    const imagePath = path.join(__dirname, 'fish', files[imageNume]);
-    res.sendFile(imagePath);
-    console.log('Files in the directory:', imagePath);
-    });
+    fs.readFile('fish.json', 'utf8', (err, data) => {
+        if (err) {
+          res.status(500).send('Error reading file');
+          return;
+        }
+    
+        try {
+          const jsonData = JSON.parse(data);
+          const fishName=jsonData[imageNume].fish["file-name"]+".png";
+          
+          res.setHeader('Content-Type', 'image/jpeg');
+          const imagePath = path.join(__dirname, 'fish', fishName);
+          res.sendFile(imagePath);
+          console.log('Files in the directory:', imagePath);
+        } catch (err) {
+          res.status(500).send('Error parsing JSON');
+        }
+      });
 
 })
 
