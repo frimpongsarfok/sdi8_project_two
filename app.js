@@ -33,14 +33,15 @@ app.get("/image/:imageNum",(req,res)=>{
     
         try {
           const jsonData = JSON.parse(data);
-          const fishName=jsonData[imageNume].fish["file-name"]+".png";
-          
+          const fishName=jsonData[imageNume]["file-name"];
+          console.log('Files in the directory:', fishName);
+
           res.setHeader('Content-Type', 'image/jpeg');
-          const imagePath = path.join(__dirname, 'fish', fishName);
+          const imagePath = path.join(__dirname, 'fish', fishName+".png");
           res.sendFile(imagePath);
           console.log('Files in the directory:', imagePath);
         } catch (err) {
-          res.status(500).send('Error parsing JSON');
+          res.status(500).send('Error parsing JSON:'+err);
         }
       });
 
