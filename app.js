@@ -53,7 +53,7 @@ app.get("/image/:imageNum",(req,res)=>{
 
 })
 
-app.get("/image/icon/fish/:imageNum",(req,res)=>{    
+app.get("/image/icons/fish/:imageNum",(req,res)=>{    
   const imageNume=req.params.imageNum;
   fs.readFile('fish.json', 'utf8', (err, data) => {
       if (err) {
