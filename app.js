@@ -39,8 +39,8 @@ app.get("/image/:imageNum",(req,res)=>{
     
         try {
           const jsonData = JSON.parse(data);
-          const fishName=jsonData[imageNume]["file-name"];
-          console.log('Files in the directory:', fishName);
+          const fishName=jsonData.find((fish)=>fish["id"]==imageNume)["file-name"];
+          console.log('Files in the directory:', fishName, imageNume);
 
           res.setHeader('Content-Type', 'image/jpeg');
           const imagePath = path.join(__dirname, 'fish', fishName+".png");
@@ -63,7 +63,7 @@ app.get("/image/icons/fish/:imageNum",(req,res)=>{
   
       try {
         const jsonData = JSON.parse(data);
-        const fishName=jsonData[imageNume]["file-name"];
+        const fishName=jsonData.find((fish)=>fish["id"]==imageNume)["file-name"];
         console.log('Files in the directory:', fishName);
 
         res.setHeader('Content-Type', 'image/jpeg');
