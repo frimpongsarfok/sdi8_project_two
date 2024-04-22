@@ -6,12 +6,13 @@ const cors = require('cors');
 const path = require('path');
 
 // Enable CORS for all routes
-app.use(cors({}));
 
-const corsOptions = {
-  origin: 'https://progress0001.d38e4w01r6499i.amplifyapp.com/', // Define the allowed origin
-  optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
+}
+app.use(cors(corsOptions));
 // API endpoint to get JSON data
 app.get('/fish', (req, res) => {
   fs.readFile('fish.json', 'utf8', (err, data) => {
